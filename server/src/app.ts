@@ -2,14 +2,16 @@ import express from "express";
 import { ProductRouter } from "./routes";
 import { Connection } from "./connection";
 import { corsMiddleware } from "./middleware/cors";
-import Dotenv from "dotenv";
+import dotenv from "dotenv";
 import { ProductModel } from "./models/product.model";
+
+dotenv.config();
 
 export class App {
   private app = express();
   private productRouter: ProductRouter;
   private connection: Connection;
-  private port = process.env.PORT || "3000";
+  private port = process.env.PORT || 3000;
 
   constructor({ ProductModel }: any) {
     this.productRouter = new ProductRouter(ProductModel);
@@ -42,5 +44,4 @@ export class App {
 }
 
 // we configure the variables of ambient
-Dotenv.config();
 const server = new App({ ProductModel });

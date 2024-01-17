@@ -1,12 +1,14 @@
 import { Sequelize } from "sequelize";
+import dotenv from 'dotenv';
+dotenv.config();
 
 export class Connection {
   private sequelize: Sequelize;
-  private host = "ep-crimson-band-53171710.us-east-2.aws.neon.fl0.io";
-  private port = 5432;
-  database = "almacen";
-  username = "fl0user";
-  private password = "cTZwGzD65bia";
+  private host = process.env.DB_HOST || 'localhost';
+  private port = process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 5432;
+  database = process.env.DB_NAME || 'almacen';
+  username = process.env.DB_USER || 'fl0';
+  private password = process.env.DB_PASSWORD || undefined;
 
   constructor() {
     this.sequelize = new Sequelize(
