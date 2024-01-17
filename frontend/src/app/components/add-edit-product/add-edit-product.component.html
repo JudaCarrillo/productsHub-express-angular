@@ -1,0 +1,109 @@
+<app-progress-bar *ngIf="loading" />
+
+<div *ngIf="!loading" class="row mt-3">
+  <div class="col">
+    <div class="card" style="width: 20rem">
+      <div class="card-header text-center">{{ operation }} Product</div>
+      <div class="card-body">
+        <form
+          [formGroup]="productForm"
+          method="post"
+          novalidate
+          (submit)="productManagement($event)"
+        >
+          <div class="mb-3">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter the name"
+              formControlName="name"
+              [ngClass]="{
+                'is-invalid':
+                  hasErrors('name', 'required') ||
+                  hasErrors('name', 'minlength')
+              }"
+            />
+
+            @if (hasErrors('name', 'required')) {
+            <span class="text-danger">This field is required.</span>
+            } @else if (hasErrors('name', 'minlength')) {
+            <span class="text-danger"
+              >You have to write at least 3 characters.</span
+            >
+            }
+          </div>
+          <div class="mb-3">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter description"
+              formControlName="description"
+              [ngClass]="{
+                'is-invalid':
+                  hasErrors('description', 'required') ||
+                  hasErrors('description', 'minlength')
+              }"
+            />
+            @if (hasErrors('description', 'required')) {
+            <span class="text-danger">This field is required.</span>
+            } @else if (hasErrors('description', 'minlength')) {
+            <span class="text-danger"
+              >You have to write at least 10 characters.</span
+            >
+            }
+          </div>
+          <div class="mb-3">
+            <input
+              type="number"
+              class="form-control"
+              placeholder="Enter price"
+              formControlName="price"
+              [ngClass]="{
+                'is-invalid':
+                  hasErrors('price', 'required') || hasErrors('price', 'min')
+              }"
+            />
+            @if (hasErrors('price', 'required')) {
+            <span class="text-danger">This field is required.</span>
+            } @else if (hasErrors('price', 'min')) {
+            <span class="text-danger"
+              >You have to enter at least 1 number.</span
+            >
+            }
+          </div>
+          <div class="mb-3">
+            <input
+              type="number"
+              class="form-control"
+              placeholder="Enter stock"
+              formControlName="stock"
+              [ngClass]="{
+                'is-invalid':
+                  hasErrors('stock', 'required') || hasErrors('stock', 'min')
+              }"
+            />
+            @if (hasErrors('stock', 'required')) {
+            <span class="text-danger">This field is required.</span>
+            } @else if (hasErrors('stock', 'min')) {
+            <span class="text-danger"
+              >You have to enter at least 1 number.</span
+            >
+            }
+          </div>
+          <div class="d-flex justify-content-around">
+            <button class="btn btn-outline-secondary" [routerLink]="['/']">
+              Back
+            </button>
+            <button
+              type="submit"
+              [disabled]="productForm.invalid"
+              class="btn btn-outline-primary"
+            >
+              Accept
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

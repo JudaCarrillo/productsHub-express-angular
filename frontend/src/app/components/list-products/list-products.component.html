@@ -1,0 +1,50 @@
+@if (loading) {
+<app-progress-bar />
+}
+
+<div *ngIf="!loading" class="container">
+  <div class="title my-3 d-flex justify-content-between">
+    <h4>List of Products</h4>
+    <button class="btn btn-primary" [routerLink]="['/add']">Add Product</button>
+  </div>
+
+  <table *ngIf="listProducts.length > 0" class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Product</th>
+        <th scope="col">Description</th>
+        <th scope="col">Price</th>
+        <th scope="col">Stock</th>
+        <th class="text-center" scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (product of listProducts; track $index) {
+      <tr>
+        <td>{{ product.name }}</td>
+        <td>{{ product.description }}</td>
+        <td>{{ product.price | currency }}</td>
+        <td>{{ product.stock }}</td>
+        <td class="text-center">
+          <button
+            class="btn btn-outline-primary btn-sm"
+            [routerLink]="['/edit', product.id]"
+          >
+            Edit
+          </button>
+          <button
+            (click)="deleteProduct(product.id!)"
+            class="btn btn-outline-success btn-sm ms-3"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+
+  <h5 *ngIf="listProducts.length <= 0" class="text-center">
+    There aren't products to display
+  </h5>
+</div>
